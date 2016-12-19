@@ -1,6 +1,3 @@
-            
-To change this template, choose Tools | Templates
-and open the template in the editor.
     
 <!DOCTYPE html>
 <?php
@@ -62,10 +59,21 @@ $ps=$_SESSION['password'];
                 } else {
                      
                      var pass = prompt("Authentication Required!\nEnter your password","");
-                     while(pass!=<?php echo $ps;?>){
-                         pass=prompt("Wrong password..! Enter Again");
-                     }
-                    xmlhttp = new XMLHttpRequest();
+                     if(!pass){
+                            alert('Cancel Clicked!!!');
+                            location.reload();
+                         }else{
+                           while(pass!=<?php echo $ps;?>){
+                            pass=prompt("Wrong password..! Enter Again");
+                                if(!pass){
+                                alert('Calcel Clicked!!!');
+                                
+                                location.reload();
+                                break;
+                             }
+                           }
+                           if(pass==<?php echo $ps;?>){
+                              xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
                             document.getElementById("mainDiv").style.display= 'none';
@@ -76,7 +84,11 @@ $ps=$_SESSION['password'];
                     
                     
                     xmlhttp.open("GET", "addCustomer.php"+data , true);
-                    xmlhttp.send();
+                    xmlhttp.send(); 
+                           }
+                         }
+                     
+                    
                 }
             }
             
@@ -164,16 +176,16 @@ $ps=$_SESSION['password'];
                                 </div>
                                 <div class="col-sm-4">
                                     
-                                    <label for="mobileNumber">Mobile</label>
+                                    <label for="mobileNumber">Mobile:</label>
                                     <input id="mobileNumber" type="number" class="form-control" placeholder="Mobile Number">
                                 </div>
                                 <div class="col-sm-2"></div>
                                     
                             </div>
-                            <br><br>
+                            <br>
                             <div class=" row">
                                 <div class="col-sm-6">
-                                    
+                                     <label for="address">Address:</label><br>
                                     <textarea  id="address" cols="40" rows="5" style="font-family: serif" placeholder="Enter Address Here"></textarea>
                                 </div>
                                 <div class="col-sm-6"></div>
